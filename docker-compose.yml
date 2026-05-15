@@ -1,0 +1,37 @@
+version: "3.9"
+
+services:
+  web:
+    build: .
+    working_dir: /app/apps/web
+    command: pnpm dev
+    ports:
+      - "3000:3000"
+
+  auth-service:
+    build: .
+    working_dir: /app/apps/auth-service
+    command: pnpm dev
+    ports:
+      - "3001:3001"
+
+  inventory-service:
+    build: .
+    working_dir: /app/apps/inventory-service
+    command: pnpm dev
+    ports:
+      - "3002:3002"
+
+  cart-service:
+    build: .
+    working_dir: /app/apps/cart-service
+    command: pnpm dev
+    ports:
+      - "3003:3003"
+
+  orders-service:
+    build: .
+    working_dir: /app/apps/orders-service
+    command: pnpm dev
+    ports:
+      - "3004:3004"
