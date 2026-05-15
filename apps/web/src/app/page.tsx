@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
@@ -10,30 +10,9 @@ export default function Home() {
   const [password, setPassword] =
     useState("");
 
-  const [products, setProducts] =
-    useState<any[]>([]);
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  async function fetchProducts() {
-    try {
-      const response = await fetch(
-        "http://localhost:3002/api/products"
-      );
-
-      const data = await response.json();
-
-      setProducts(data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   async function handleRegister() {
     const response = await fetch(
-      "http://localhost:3000/api/auth/register",
+      "http://localhost:3001/api/auth/register",
       {
         method: "POST",
         headers: {
@@ -54,7 +33,7 @@ export default function Home() {
 
   async function handleLogin() {
     const response = await fetch(
-      "http://localhost:3000/api/auth/login",
+      "http://localhost:3001/api/auth/login",
       {
         method: "POST",
         headers: {
@@ -87,16 +66,16 @@ export default function Home() {
   }
 
   return (
-    <main className="p-10 flex flex-col gap-6">
-      <h1 className="text-4xl font-bold">
-        DigitalMarket 🚀
-      </h1>
+    <main className="min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="bg-white p-8 rounded-xl shadow-md w-full max-w-md flex flex-col gap-4">
+        <h1 className="text-4xl font-bold text-center">
+          DigitalMarket 🚀
+        </h1>
 
-      <div className="flex flex-col gap-2 max-w-sm">
         <input
           type="email"
           placeholder="Correo"
-          className="border p-2 rounded"
+          className="border p-3 rounded"
           value={email}
           onChange={(e) =>
             setEmail(e.target.value)
@@ -106,7 +85,7 @@ export default function Home() {
         <input
           type="password"
           placeholder="Contraseña"
-          className="border p-2 rounded"
+          className="border p-3 rounded"
           value={password}
           onChange={(e) =>
             setPassword(e.target.value)
@@ -115,50 +94,17 @@ export default function Home() {
 
         <button
           onClick={handleRegister}
-          className="bg-black text-white px-4 py-2 rounded"
+          className="bg-black text-white px-4 py-3 rounded hover:opacity-90 transition"
         >
           Registrarse
         </button>
 
         <button
           onClick={handleLogin}
-          className="bg-blue-500 text-white px-4 py-2 rounded"
+          className="bg-blue-500 text-white px-4 py-3 rounded hover:opacity-90 transition"
         >
           Iniciar sesión
         </button>
-      </div>
-
-      <hr />
-
-      <h2 className="text-2xl font-bold">
-        Productos
-      </h2>
-
-      <div className="grid grid-cols-3 gap-4">
-        {products.map((product) => (
-          <div
-            key={product.id}
-            className="border rounded p-4"
-          >
-            <img
-              src={product.image_url}
-              alt={product.name}
-              className="w-full h-48 object-cover rounded"
-            />
-
-            <h3 className="text-xl font-bold mt-2">
-              {product.name}
-            </h3>
-
-            <p>
-              {product.description}
-            </p>
-
-            <p className="font-bold">
-              ${product.price}
-            </p>
-          </div>
-        ))}
       </div>
     </main>
   );

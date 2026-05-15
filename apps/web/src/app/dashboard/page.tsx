@@ -19,6 +19,7 @@ export default function DashboardPage() {
 
     if (!token) {
       router.push("/");
+      return;
     }
 
     fetchProducts();
@@ -67,7 +68,7 @@ export default function DashboardPage() {
         {products.map((product) => (
           <div
             key={product.id}
-            className="border rounded p-4"
+            className="border rounded p-4 bg-white shadow"
           >
             <img
               src={product.image_url}
@@ -83,7 +84,7 @@ export default function DashboardPage() {
               {product.description}
             </p>
 
-            <p className="font-bold">
+            <p className="font-bold mt-2">
               ${product.price}
             </p>
           </div>
